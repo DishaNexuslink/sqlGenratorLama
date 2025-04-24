@@ -165,7 +165,7 @@ client = OpenAI(
 
 # === Streamlit UI ===
 st.set_page_config(page_title="Schema-aware SQL Generator", layout="centered")
-st.title("🧠 SQL Generator from Schema")
+st.title("SQL Generator from Schema")
 
 user_question = st.text_area("💬 Ask a question:", height=100)
 
@@ -202,7 +202,7 @@ if generate and user_question.strip():
         end_time = time.time()
         total_tokens = input_tokens + output_tokens
 
-        st.subheader("🧠 Generated SQL Query:")
+        st.subheader(" Generated SQL Query:")
         st.code(output_text.strip(), language="sql")
 
         st.subheader("📊 Stats")
