@@ -104,7 +104,6 @@ def count_tokens(text):
 with open(r"data\datajson", "r") as f:
     schema = json.load(f)
 
-    schema = json.load(f)
 
 
 # === Convert schema to readable format ===
