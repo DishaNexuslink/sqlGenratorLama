@@ -104,7 +104,6 @@ def count_tokens(text):
 with open(r"D:\genratorLama\data\data.json", "r") as f:
     schema = json.load(f)
 
-    schema = json.load(f)
 
 # === Convert schema to readable format ===
 schema_text = json.dumps(schema, indent=2)
