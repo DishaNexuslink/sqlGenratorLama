@@ -1,0 +1,251 @@
+{
+    "DimPCP_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "AppPCPID", "type": "int"},
+            {"name": "PCPName", "type": "nvarchar"},
+            {"name": "NPI", "type": "nvarchar"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "DimOfficeLocation_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "AppOfficeID", "type": "int"},
+            {"name": "OfficeName", "type": "nvarchar"},
+            {"name": "TIN", "type": "nvarchar"},
+            {"name": "RegionName", "type": "nvarchar"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "DimProviderGroup_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "ProviderGroupName", "type": "nvarchar"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "DimProviderSubGroup_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "ProviderSubGroupName", "type": "nvarchar"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "DimInsurance_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "InsuranceName", "type": "nvarchar"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "DimInsurancePlan_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "PlanCode", "type": "nvarchar"},
+            {"name": "PlanName", "type": "nvarchar"},
+            {"name": "InsuranceClass", "type": "nvarchar"},
+            {"name": "IsSNPPlan", "type": "bit"},
+            {"name": "SNPIndicator", "type": "nvarchar"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "DimInsuranceOfficePCPGroup_PBI": {
+        "columns": [
+            {"name": "PCPid", "type": "int"},
+            {"name": "OfficeLocationID", "type": "int"},
+            {"name": "ProviderGroupID", "type": "int"},
+            {"name": "ProviderSubGroupID", "type": "int"}
+        ],
+        "primary_key": null,
+        "foreign_keys": {
+            "PCPid": "DimPCP_PBI.ID",
+            "OfficeLocationID": "DimOfficeLocation_PBI.ID",
+            "ProviderGroupID": "DimProviderGroup_PBI.ID",
+            "ProviderSubGroupID": "DimProviderSubGroup_PBI.ID"
+        }
+    },
+    "DimMember_PBI": {
+        "columns": [
+            {"name": "ID", "type": "int"},
+            {"name": "MemberName", "type": "nvarchar"},
+            {"name": "DOB", "type": "date"},
+            {"name": "Gender", "type": "nvarchar"},
+            {"name": "Address1", "type": "nvarchar"},
+            {"name": "Address2", "type": "nvarchar"},
+            {"name": "City", "type": "nvarchar"},
+            {"name": "ZipCode", "type": "nvarchar"},
+            {"name": "Country", "type": "nvarchar"},
+            {"name": "County", "type": "nvarchar"},
+            {"name": "State", "type": "nvarchar"},
+            {"name": "AppMemberID", "type": "int"},
+            {"name": "LastRiskScoreC", "type": "decimal","remarks":"do the average over for RiskScore"},
+            {"name": "LastRiskScoreD", "type": "decimal","remarks":"do the average over for RiskScore"},
+            {"name": "HasChronicDisease", "type": "bit"},
+            {"name": "DeceasedDate", "type": "date"}
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {}
+    },
+    "FactMemberPMPM_PBI": {
+        "columns": [
+            {"name":"ID" ,"type":"int" },
+            {"name":"CustomerID" ,"type":"smallint" },
+            {"name":"InsuranceID" ,"type":"int" },
+            {"name":"InsurancePlanID" ,"type":"int" },
+            {"name":"LOBName" ,"type":"varchar" },
+            {"name":"InsuranceOfficePCPGroupID" ,"type":"int" },
+            {"name":"MemberID" ,"type":"int" },
+            {"name":"SubscriberCode" ,"type":"varchar" },
+            {"name":"CalenderDateID" ,"type":"int" },
+            {"name":"ActiVityDate" ,"type":"date", "synonyms": ["duration", "2024"] },
+            {"name":"SourceLOB" ,"type":"int" },
+            {"name":"MemberCount" ,"type":"int" },
+            {"name":"RiskScoreC" ,"type":"varchar" },
+            {"name":"RiskScoreD" ,"type":"tinyint" },
+            {"name":"IsAged" ,"type":"bit" },
+            {"name":"IsDisabled" ,"type":"bit" },
+            {"name":"IsESRD" ,"type":"bit" },
+            {"name":"IsHospice" ,"type":"bit" },
+            {"name":"IsDualEligible" ,"type":"bit" },
+            {"name":"DualCode" ,"type":"bit" },
+            {"name":"EnrollmentDate" ,"type":"date" },
+            {"name":"MedicareNumber" ,"type":"varchar" },
+            {"name":"RiscscoreCExists" ,"type":"tinyint" },
+            {"name":"RiscscoreDExists" ,"type":"tinyint" },
+            {"name":"SourceInsGrouperCode" ,"type":"varchar" },
+            {"name":"RiskType" ,"type":"varchar" },
+            {"name":"GrouperName" ,"type":"varchar" },
+            {"name":"IsDataShareExcluded" ,"type":"bit" },
+            {"name":"ProjectedRiskScorePartC" ,"type":"numeric" },
+            {"name":"PotentialRiskScorePartC" ,"type":"numeric" },
+            {"name":"ProjectedRiskScorePartD" ,"type":"numeric" },
+            {"name":"PotentialRiskScorePartD" ,"type":"numeric" },
+            {"name":"AgeGroupCode" ,"type":"varchar" }
+        ],
+        "primary_key": "ID",
+        "foreign_keys": {
+            "InsuranceID": "DimInsurance_PBI.ID",
+            "InsurancePlanID": "DimInsurancePlan_PBI.ID",
+            "InsuranceOfficePCPGroupID": "DimInsuranceOfficePCPGroup_PBI.ID",
+            "MemberID": "DimMember_PBI.ID"
+        }
+    },
+    "FactMemberSummaryPMPM_PBI": {
+        "columns": [
+            {"name":"FactMemberPMPMID" ,"type":"int" },
+            {"name":"AmtActualInstClaim" ,"type":"money" },
+            {"name":"AmtActualInstClaimCovid" ,"type":"money" },
+            {"name":"AmtActualProfClaim" ,"type":"money" },
+            {"name":"AmtActualProfClaimCovid" ,"type":"money" },
+            {"name":"AmtActualRxClaim" ,"type":"money" },
+            {"name":"AmtActualRxClaimCovid" ,"type":"money" },
+            {"name":"AmtTotalExpenses" ,"type":"money" },
+            {"name":"AmtTotalExpensesCovid" ,"type":"money" },
+            {"name":"AmtAdjustmentPartA" ,"type":"money" },
+            {"name":"AmtAdjustmentPartB" ,"type":"money" },
+            {"name":"AmtAdjustmentPartC" ,"type":"money" },
+            {"name":"AmtAdjustmentPartD" ,"type":"money" },
+            {"name":"AmtAdjustmentTotal" ,"type":"money" },
+            {"name":"AmtBalance" ,"type":"money" },
+            {"name":"AmtCMSPremiumA" ,"type":"money" },
+            {"name":"AmtCMSPremiumB" ,"type":"money" },
+            {"name":"AmtCMSPremiumC" ,"type":"money" },
+            {"name":"AmtCMSPremiumD" ,"type":"money" },
+            {"name":"AmtCMSTotalPremium" ,"type":"money" },
+            {"name":"AmtDisbursement" ,"type":"money" },
+            {"name":"AmtIBNR" ,"type":"money" },
+            {"name":"AmtPartAClaim" ,"type":"money" },
+            {"name":"AmtPartBClaim" ,"type":"money" },
+            {"name":"AmtPartCClaim" ,"type":"money" },
+            {"name":"AmtPartDClaim" ,"type":"money" },
+            {"name":"AmtTotalClaim" ,"type":"money" },
+            {"name":"AmtPOPPartA" ,"type":"money" },
+            {"name":"AmtPOPPartB" ,"type":"money" },
+            {"name":"AmtPOPPartC" ,"type":"money" },
+            {"name":"AmtPOPPartD" ,"type":"money" },
+            {"name":"AmtPOPTotal" ,"type":"money", "synonyms": ["funding", "Total Funding"] },
+            {"name":"AmtPCPCap" ,"type":"money" },
+            {"name":"AmtReInsurance" ,"type":"money" },
+            {"name":"AmtSpecialtyCap" ,"type":"money" },
+            {"name":"AmtStopLossPartA" ,"type":"money" },
+            {"name":"AmtStopLossPartB" ,"type":"money" },
+            {"name":"AmtStopLossPartC" ,"type":"money" },
+            {"name":"AmtStopLossPartD" ,"type":"money" },
+            {"name":"AmtTotalStopLoss" ,"type":"money" }
+        ],
+        "primary_key": "FactMemberPMPMID",
+        "foreign_keys": {
+            "FactMemberPMPMID": "FactMemberPMPM_PBI.ID"
+        }
+       
+
+    },
+"FactClaimDetails_PBI": {"columns": [
+    {"name":"ClaimId" ,"type":"int" },
+    {"name":"FactMemberPMPMID" ,"type":"int" },
+    {"name":"ClaimNumber" ,"type":"nvarchar" },
+    {"name":"LineNumber" ,"type":"bigint" },
+    {"name":"ClaimType" ,"type":"varchar" },
+    {"name":"DOSStart" ,"type":"date" },
+    {"name":"DOSEnd" ,"type":"date" },
+    {"name":"ClaimStatus" ,"type":"varchar" },
+    {"name":"DrgCode" ,"type":"varchar" },
+    {"name":"ServiceProviderID" ,"type":"int" },
+    {"name":"ServiceProviderParStatus" ,"type":"varchar" },
+    {"name":"IsInNetwrok" ,"type":"tinyint" },
+    {"name":"NDC" ,"type":"varchar" },
+    {"name":"DrugDesc" ,"type":"varchar" },
+    {"name":"DrugPartTypeFlag" ,"type":"varchar" },
+    {"name":"DrugGenericIndicator" ,"type":"varchar" },
+    {"name":"RevenueCode1" ,"type":"varchar" },
+    {"name":"Quantity" ,"type":"decimal" },
+    {"name":"AmtBilled" ,"type":"money" },
+    {"name":"AmtAllowed" ,"type":"money" },
+    {"name":"AmtPaid" ,"type":"money" },
+    {"name":"ClaimCategory" ,"type":"varchar" },
+    {"name":"ClmTyp_ClmCnt" ,"type":"tinyint" },
+    {"name":"ClmTypSpec_ClmCnt" ,"type":"tinyint" },
+    {"name":"ClmTypSpecProvider_ClmCnt" ,"type":"tinyint" },
+    {"name":"ClmTypClmCategory_ClmCnt" ,"type":"tinyint" },
+    {"name":"ClmTypSpecCPTProv_ClmCnt" ,"type":"tinyint" },
+    {"name":"ACORxAmtPaid" ,"type":"money" },
+    {"name":"FacilityType" ,"type":"varchar" },
+    {"name":"ClmTypInNetworkVisit_ClmCnt" ,"type":"tinyint" },
+    {"name":"IsCovidClaim" ,"type":"bit" },
+    {"name":"IsZeroDollarclaim" ,"type":"bit" },
+    {"name":"ServiceProviderSpecialtyID" ,"type":"int" },
+    {"name":"POSCode" ,"type":"varchar" },
+    {"name":"POSDesc" ,"type":"varchar" },
+    {"name":"CPTCode" ,"type":"varchar" },
+    {"name":"CPTDescription" ,"type":"varchar" },
+    {"name":"ICDClinicalTypeCodeID" ,"type":"smallint" },
+    {"name":"PrimaryDiagnosisCode" ,"type":"varchar" },
+    {"name":"PrimaryDiagnosisDesc" ,"type":"varchar" },
+    {"name":"DimVendorID" ,"type":"int" },
+    {"name":"TherapeuticClass" ,"type":"varchar" },
+    {"name":"VendorCodeType" ,"type":"varchar" },
+    {"name":"BillTypeCode" ,"type":"varchar" },
+    {"name":"ServiceProviderCode" ,"type":"varchar" },
+    {"name":"DRGWeights" ,"type":"decimal" },
+    {"name":"ServiceProviderSourceSpecialty" ,"type":"varchar" },
+    {"name":"BillingProviderCode" ,"type":"varchar" },
+    {"name":"CheckDate" ,"type":"date" },
+    {"name":"SpecialityName" ,"type":"varchar" },
+    {"name":"ServiceProviderName" ,"type":"varchar" },
+    {"name":"ServiceProviderCity" ,"type":"varchar" },
+    {"name":"BillingProviderName" ,"type":"varchar" }
+    ],
+    "primary_key": "ClaimId",
+        "foreign_keys": {
+            "FactMemberPMPMID": "FactMemberPMPM_PBI.ID"
+        }
+}
+
+}
