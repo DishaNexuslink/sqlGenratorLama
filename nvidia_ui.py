@@ -101,8 +101,9 @@ def count_tokens(text):
     return len(tokenizer.encode(text))
 
 # === Load schema ===
-with open(r"data\datajson", "r") as f:
+with open("data/data.json", "r") as f:
     schema = json.load(f)
+
 
 
 
