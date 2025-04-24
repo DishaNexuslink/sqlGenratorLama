@@ -101,7 +101,7 @@ def count_tokens(text):
     return len(tokenizer.encode(text))
 
 # === Load schema ===
-with open("D:\queryGrok\data\datajson", "r") as f:
+with open("D:\genratorLama\data", "r") as f:
     schema = json.load(f)
 
 # === Convert schema to readable format ===
