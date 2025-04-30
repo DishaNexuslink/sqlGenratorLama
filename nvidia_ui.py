@@ -165,7 +165,7 @@ client = OpenAI(
 
 # === Streamlit UI ===
 st.set_page_config(page_title="Schema-aware SQL Generator", layout="centered")
-st.title("SQL Generator from Schema")
+st.title("SQL Generator")
 
 user_question = st.text_area("💬 Ask a question:", height=100)
 
